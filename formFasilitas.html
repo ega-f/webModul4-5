@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Fasilitas</title>
+    <link rel="stylesheet" href="css/stylefasilitas.css">
+</head>
+<body>
+    <form method="get" class="form-container" onsubmit="return validateForm()">
+        <div>
+            <h1 align="center">Form Fasilitas</h1>
+            <table align="center">
+                <tr>
+                    <td><label for="id">ID</label></td>
+                    <td><input type="text" name="id" id="id" minlength="5" maxlength="10" size="50" required></td>
+                </tr>
+                <tr>
+                    <td><label for="namaFasilitas">Nama Fasilitas</label></td>
+                    <td><input type="text" name="namaFasilitas" id="namaFasilitas" size="50" required></td>
+                </tr>
+                <tr>
+                    <td><label for="hargaWeekend">Harga Weekend</label></td>
+                    <td><input type="number" id="hargaWeekend" placeholder="RP." style="width: 362px;" required> IDR</td>
+                </tr>
+                <tr>
+                    <td><label for="hargaWeekday">Harga Weekday</label></td>
+                    <td><input type="number" id="hargaWeekday" placeholder="RP." style="width: 362px;" required> IDR</td>
+                </tr>
+                <tr>
+                    <td><label for="kuota">Kuota</label></td>
+                    <td><input type="number" id="kuota" style="width: 362px;" required> Orang</td>
+                </tr>
+                <tr>
+                    <td><label for="jamBuka">Jam Buka</label></td>
+                    <td><input type="time" id="jamBuka" style="width: 362px;" required></td>
+                </tr>
+                <tr>
+                    <td><label for="jamTutup">Jam Tutup</label></td>
+                    <td><input type="time" id="jamTutup" style="width: 362px;" required></td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <div class="button-container">
+            <input type="submit" name="save" value="Simpan" class="button-save">
+            <input type="button" name="cancel" value="Batal" class="button-cancel" onclick="resetForm()">
+        </div>
+        <br>
+    </form>
+    <script>
+        function validateForm() {
+            const id = document.getElementById('id').value;
+            const namaFasilitas = document.getElementById('namaFasilitas').value;
+            const hargaWeekend = document.getElementById('hargaWeekend').value;
+            const hargaWeekday = document.getElementById('hargaWeekday').value;
+            const kuota = document.getElementById('kuota').value;
+            const jamBuka = document.getElementById('jamBuka').value;
+            const jamTutup = document.getElementById('jamTutup').value;
+            if (id.length < 5 || id.length > 10) {
+                alert("ID harus terdiri dari 5-10 karakter.");
+                return false;
+            }
+            if (!namaFasilitas.trim()) {
+                alert("Nama Fasilitas tidak boleh kosong.");
+                return false;
+            }
+            if (hargaWeekend <= 0) {
+                alert("Harga Weekend harus lebih besar dari 0.");
+                return false;
+            }
+            if (hargaWeekday <= 0) {
+                alert("Harga Weekday harus lebih besar dari 0.");
+                return false;
+            }
+            if (kuota <= 0) {
+                alert("Kuota harus lebih besar dari 0.");
+                return false;
+            }
+            if (jamBuka >= jamTutup) {
+                alert("Jam Buka harus lebih awal dari Jam Tutup.");
+                return false;
+            }
+            alert("Form berhasil disimpan!");
+            return true;
+        }
+        function resetForm() {
+            document.querySelector(".form-container").reset();
+            alert("Form telah direset.");
+        }
+    </script>
+</body>
+</html>

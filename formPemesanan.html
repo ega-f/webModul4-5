@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan</title>
+    <link rel="stylesheet" href="css/stylePemesanan.css">
+</head>
+<body>
+    <form method="get" class="form-container" id="formPemesanan">
+        <h1 align="center">Form Pemesanan</h1>
+        <table align="center">
+            <tr>
+                <td><label for="id">Id Pemesan</label></td>
+                <td><input type="number" id="id" maxlength="10" required /></td>
+            </tr>
+            <tr>
+                <td><label for="nama">Nama Pemesan</label></td>
+                <td><input type="text" id="nama" required /></td>
+            </tr>
+            <tr>
+                <td><label for="identitas">Nomor Identitas</label></td>
+                <td><input type="text" id="identitas" maxlength="16" required /></td>
+            </tr>
+            <tr>
+                <td><label for="kamar">Jenis Kamar</label></td>
+                <td>
+                    <select id="kamar">
+                        <option value="">--Silahkan Pilih Kamar--</option>
+                        <option value="500000">Standard</option>
+                        <option value="800000">Deluxe</option>
+                        <option value="1200000">Family</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="tglPemesanan">Tanggal Pesan</label></td>
+                <td><input type="date" id="tglPemesanan" required /></td>
+            </tr>
+            <tr>
+                <td><label for="durasi">Durasi Menginap</label></td>
+                <td><input type="number" id="durasi" min="1" required /> Hari</td>
+            </tr>
+            <tr>
+                <td><label for="sarapan">Termasuk Breakfast</label></td>
+                <td><input type="checkbox" id="sarapan"> Ya</td>
+            </tr>
+            <tr>
+                <td><label for="total">Total Bayar</label></td>
+                <td><input type="text" id="total" readonly /></td>
+            </tr>
+        </table>
+        <br>
+        <div class="button-container">
+            <button type="button" class="button-save" id="simpan">Simpan</button>
+            <button type="reset" class="button-cancel" id="cancel">Batal</button>
+        </div>
+    </form>
+    <script>
+        document.getElementById('simpan').addEventListener('click', function () {
+            const id = document.getElementById('id').value;
+            const nama = document.getElementById('nama').value.trim();
+            const identitas = document.getElementById('identitas').value.trim();
+            const kamar = document.getElementById('kamar').value;
+            const durasi = parseInt(document.getElementById('durasi').value);
+            const sarapan = document.getElementById('sarapan').checked;
+            if (identitas.length !== 5 || isNaN(identitas)) {
+                alert("Nomor identitas harus berupa angka 5 digit.");
+                return;
+            }
+            if (!kamar) {
+                alert("Silakan pilih jenis kamar.");
+                return;
+            }
+            if (isNaN(durasi) || durasi < 1) {
+                alert("Durasi menginap harus minimal 1 hari.");
+                return;
+            }
+            let total = kamar * durasi;
+            if (durasi > 3) {
+                total *= 0.9;
+            }
+            if (sarapan) {
+                total += 80000;
+            }
+            document.getElementById('total').value = `Rp. ${total.toLocaleString()}`;
+            alert(`Pemesanan atas nama ${nama} berhasil disimpan. Total bayar: Rp. ${total.toLocaleString()}`);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Kamar</title>
+    <link rel="stylesheet" href="css/stylekamar.css">
+</head>
+<body>
+    <form method="get" class="form-container" onsubmit="return validateForm()">
+        <h1 align="center">Form Kamar</h1>
+        <table align="center">
+            <tr>
+                <td><label for="idKamar">ID Kamar</label></td>
+                <td><input type="text" id="idKamar" minlength="1" maxlength="10" size="50" required /></td>
+            </tr>
+            <tr>
+                <td><label for="gambarRuangan">Gambar Ruangan</label></td>
+                <td><input type="file" id="gambarRuangan" size="50" accept="image/*" required></td>
+            </tr>
+            <tr>
+                <td><label for="jenisKamar">Jenis Kamar</label></td>
+                <td>
+                    <select name="namaKamar" id="jenisKamar" required>
+                        <option value="">--Pilih--</option>
+                        <option value="Standar">Standar</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Family">Family</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="harga">Harga</label></td>
+                <td><input type="number" id="harga" style="width: 362px;" placeholder="RP." required> IDR</td>
+            </tr>
+            <tr>
+                <td><label for="fasilitas">Fasilitas</label></td>
+                <td>
+                    <input type="checkbox" name="fasilitas" value="AC">AC         
+                    <input type="checkbox" name="fasilitas" value="Bathup">Bathup         
+                    <input type="checkbox" name="fasilitas" value="Kolam">Kolam Berenang
+                    <input type="checkbox" name="fasilitas" value="TV">TV       
+                    <input type="checkbox" name="fasilitas" value="Balkon">Balkon         
+                    <input type="checkbox" name="fasilitas" value="WIFI">WIFI   
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div class="button-container">
+            <input type="submit" name="save" value="Simpan" class="button-save">
+            <input type="button" name="cancel" value="Batal" class="button-cancel" onclick="resetForm()">
+        </div>
+        <br>
+    </form>
+
+    <script>
+        function validateForm() {
+            const idKamar = document.getElementById('idKamar').value;
+            const gambarRuangan = document.getElementById('gambarRuangan').value;
+            const jenisKamar = document.getElementById('jenisKamar').value;
+            const harga = document.getElementById('harga').value;
+            const fasilitas = document.querySelectorAll('input[name="fasilitas"]:checked');
+            // Validasi ID Kamar
+            if (idKamar.length < 1 || idKamar.length > 10) {
+                alert("ID Kamar harus antara 1 hingga 10 karakter.");
+                return false;
+            }
+            // Validasi Gambar Ruangan
+            if (!gambarRuangan) {
+                alert("Silakan unggah gambar ruangan.");
+                return false;
+            }
+            // Validasi Jenis Kamar
+            if (jenisKamar === "") {
+                alert("Silakan pilih jenis kamar.");
+                return false;
+            }
+            // Validasi Harga
+            if (harga <= 0) {
+                alert("Harga harus lebih besar dari 0.");
+                return false;
+            }
+            // Validasi Fasilitas
+            if (fasilitas.length === 0) {
+                alert("Silakan pilih minimal satu fasilitas.");
+                return false;
+            }
+            alert("Form berhasil disimpan!");
+            return true; // Lolos validasi
+        }
+        function resetForm() {
+            document.querySelector(".form-container").reset();
+            alert("Form telah direset.");
+        }
+    </script>
+</body>
+</html>
